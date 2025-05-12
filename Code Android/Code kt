@@ -1,1 +1,37 @@
+package com.example.piano
 
+import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val pianoContainer = findViewById<LinearLayout>(R.id.pianoContainer)
+
+        for (note in 1..32) {
+            val button = Button(this).apply {
+                text = "Note $note"
+                textSize = 16f
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    150
+                ).apply {
+                    setMargins(8, 8, 8, 8)
+                }
+
+                setOnClickListener {
+                    println("Note $note pressée")
+                    // TODO : envoyer via Bluetooth ici
+                }
+            }
+
+            pianoContainer.addView(button)
+        }
+    }
+}
