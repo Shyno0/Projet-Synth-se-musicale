@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color // Ajoute cette importation
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val pianoContainer = findViewById<LinearLayout>(R.id.pianoContainer)
+        pianoContainer.setBackgroundColor(Color.BLACK) // Fond noir ajouté ici
 
         for (note in 1..32) {
             val button = Button(this).apply {
@@ -22,7 +24,10 @@ class MainActivity : AppCompatActivity() {
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     150
                 ).apply {
-                    setMargins(8, 8, 8, 8)
+                    marginStart = 8
+                    marginEnd = 8
+                    topMargin = 8
+                    bottomMargin = 8
                 }
 
                 setOnClickListener {
