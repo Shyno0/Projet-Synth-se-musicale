@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     160
                 )
+                elevation = 1f // <- plus bas que la touche noir
                 setOnClickListener {
                     println("Note $note pressée")
                 }
@@ -50,8 +51,9 @@ class MainActivity : AppCompatActivity() {
             // Ajout de la touche noire uniquement à certaines positions
             if (blackNotePositions.contains(note)) {
                 val blackButton = Button(this).apply {
-                    text = ""
+                    text = "Note $note"
                     setBackgroundColor(Color.BLACK)
+                    setTextColor(Color.WHITE)
                     layoutParams = FrameLayout.LayoutParams(
                         250, // Longueur touche
                         90, // Largeur touche
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                         marginEnd = 20 // <-- position horizontale
                         topMargin = 70 // <-- ajoute ceci pour ajuster verticalement
                     }
-                    elevation = 10f
+                    elevation = 10f // <- plus bas que la touche noir
                     setOnClickListener {
                         println("Note $note# pressée")
                     }
