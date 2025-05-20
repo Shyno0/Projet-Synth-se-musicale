@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
                         100,
                         Gravity.TOP or Gravity.END
                     ).apply {
-                        marginEnd = 40
+                        marginEnd = 20 // <-- position horizontale
+                        topMargin = 60 // <-- ajoute ceci pour ajuster verticalement
                     }
                     elevation = 10f
                     setOnClickListener {
