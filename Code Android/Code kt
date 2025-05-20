@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         // Positions où il y a une touche noire après la blanche (comme C -> C#)
         val blackNotePositions = setOf(1, 2, 4, 5, 6, 8, 9, 11, 13, 14, 16, 17, 18)
 
-        for (note in 1..25) {
+        for (note in 1..15) {
             // Chaque note est un FrameLayout (pour superposer noir/blanc)
             val noteFrame = FrameLayout(this).apply {
                 layoutParams = LinearLayout.LayoutParams(
