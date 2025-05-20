@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity() {
             val whiteButton = Button(this).apply {
                 text = "Note $note"
                 textSize = 16f
-                setBackgroundResource(R.drawable.button_background)
+                setBackgroundResource(R.drawable.white_button_background)
                 setTextColor(Color.BLACK)
                 layoutParams = FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    160
+                    180
                 )
                 elevation = 1f // <- plus bas que la touche noir
                 setOnClickListener {
@@ -53,14 +53,15 @@ class MainActivity : AppCompatActivity() {
             if (blackNotePositions.contains(note)) {
                 val blackButton = Button(this).apply {
                 text = "Note $note"
+                textSize = 16f
                 setTextColor(Color.WHITE)
                 layoutParams = FrameLayout.LayoutParams(
                     300, // Longueur touche
-                    90, // Largeur touche
-                    Gravity.TOP or Gravity.END
+                    120, // Largeur touche
+                    Gravity.TOP or Gravity.END // Positionne la touche noire en haut à droite
                 ).apply {
-                    marginEnd = 20
-                    topMargin = 70
+                    marginEnd = 20 // Décale la touche noire vers la gauche
+                    topMargin = 40 // Décale la touche noire vers le bas
                 }
                 elevation = 10f
 
