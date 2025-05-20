@@ -52,26 +52,27 @@ class MainActivity : AppCompatActivity() {
             // Ajout de la touche noire uniquement à certaines positions
             if (blackNotePositions.contains(note)) {
                 val blackButton = Button(this).apply {
-                text = "Note $note"
-                textSize = 16f
-                setTextColor(Color.WHITE)
-                layoutParams = FrameLayout.LayoutParams(
-                    300, // Longueur touche
-                    120, // Largeur touche
-                    Gravity.TOP or Gravity.END // Positionne la touche noire en haut à droite
-                ).apply {
-                    marginEnd = 20 // Décale la touche noire vers la gauche
-                    topMargin = 40 // Décale la touche noire vers le bas
-                }
-                elevation = 10f
+                    text = "Note $note"
+                    textSize = 16f
+                    setTextColor(Color.WHITE)
+                    layoutParams = FrameLayout.LayoutParams(
+                        300, // Longueur touche
+                        120, // Largeur touche
+                        Gravity.TOP or Gravity.END // Positionne la touche noire en haut à droite
+                    ).apply {
+                        marginEnd = 20 // Décale la touche noire vers la gauche
+                        topMargin = 40 // Décale la touche noire vers le bas
+                    }
+                    elevation = 10f
 
-                // 👇 Applique le fond avec effet ripple
-                background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
+                    // 👇 Applique le fond avec effet ripple
+                    background =
+                        ContextCompat.getDrawable(context, R.drawable.black_button_background)
 
-                setOnClickListener {
-                    println("Note $note# pressée")
+                    setOnClickListener {
+                        println("Note $note# pressée")
+                    }
                 }
-            }
 
                 noteFrame.addView(blackButton)
             }
