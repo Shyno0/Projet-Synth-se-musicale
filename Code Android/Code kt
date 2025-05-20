@@ -1,56 +1,74 @@
 package com.example.piano
 
-// Importations nécessaires pour la gestion de l'activité, de l'interface utilisateur et des couleurs
 import android.os.Bundle
+import android.view.Gravity
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import android.graphics.Color // Pour définir la couleur de fond
-import android.graphics.drawable.Drawable // (Peut être supprimé si inutilisé)
+import android.graphics.Color
 
 class MainActivity : AppCompatActivity() {
 
-    // Méthode appelée lors de la création de l'activité
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main) // Lie cette activité à son layout XML
+        setContentView(R.layout.activity_main)
 
-        // Récupération du conteneur LinearLayout défini dans le fichier XML (R.id.pianoContainer)
         val pianoContainer = findViewById<LinearLayout>(R.id.pianoContainer)
-        
-        // Définir la couleur de fond du conteneur en noir
         pianoContainer.setBackgroundColor(Color.BLACK)
 
-        // Boucle pour créer 25 boutons représentant les notes d’un clavier de piano
+        // Positions où il y a une touche noire après la blanche (comme C -> C#)
+        val blackNotePositions = setOf(1, 2, 4, 5, 6, 8, 9, 11, 13, 14, 16, 17, 18)
+
         for (note in 1..25) {
-            // Création d’un bouton avec configuration
-            var button = Button(this).apply {
-                text = "Note $note" // Texte affiché sur le bouton
-                textSize = 16f // Taille du texte
-                setBackgroundResource(R.drawable.button_background) // Fond personnalisé via un drawable
-                
-                // Paramètres de mise en page : pleine largeur et hauteur fixe de 150px, avec marges
+            // Chaque note est un FrameLayout (pour superposer noir/blanc)
+            val noteFrame = FrameLayout(this).apply {
                 layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    150
+                    160 // hauteur totale d'une touche
                 ).apply {
-                    marginStart = 8
-                    marginEnd = 8
-                    topMargin = 8
-                    bottomMargin = 8
-                }
-
-                // Action à effectuer lorsque le bouton est pressé
-                setOnClickListener {
-                    println("Note $note pressée") // Affiche la note dans la console (logcat)
-                    // TODO : envoyer via Bluetooth ici
+                    setMargins(8, 8, 8, 8)
                 }
             }
 
-            // Ajout du bouton au conteneur LinearLayout
-            pianoContainer.addView(button)
+            // Touche blanche
+            val whiteButton = Button(this).apply {
+                text = "Note $note"
+                textSize = 16f
+                setBackgroundResource(R.drawable.button_background)
+                setTextColor(Color.BLACK)
+                layoutParams = FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    160
+                )
+                setOnClickListener {
+                    println("Note $note pressée")
+                }
+            }
+
+            noteFrame.addView(whiteButton)
+
+            // Ajout de la touche noire uniquement à certaines positions
+            if (blackNotePositions.contains(note)) {
+                val blackButton = Button(this).apply {
+                    text = ""
+                    setBackgroundColor(Color.BLACK)
+                    layoutParams = FrameLayout.LayoutParams(
+                        250,
+                        100,
+                        Gravity.TOP or Gravity.END
+                    ).apply {
+                        marginEnd = 40
+                    }
+                    elevation = 10f
+                    setOnClickListener {
+                        println("Note $note# pressée")
+                    }
+                }
+
+                noteFrame.addView(blackButton)
+            }
+
+            pianoContainer.addView(noteFrame)
         }
     }
 }
-
