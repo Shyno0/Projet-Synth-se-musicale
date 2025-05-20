@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,22 +52,25 @@ class MainActivity : AppCompatActivity() {
             // Ajout de la touche noire uniquement à certaines positions
             if (blackNotePositions.contains(note)) {
                 val blackButton = Button(this).apply {
-                    text = "Note $note"
-                    setBackgroundColor(Color.BLACK)
-                    setTextColor(Color.WHITE)
-                    layoutParams = FrameLayout.LayoutParams(
-                        250, // Longueur touche
-                        90, // Largeur touche
-                        Gravity.TOP or Gravity.END
-                    ).apply {
-                        marginEnd = 20 // <-- position horizontale
-                        topMargin = 70 // <-- ajoute ceci pour ajuster verticalement
-                    }
-                    elevation = 10f // <- plus bas que la touche noir
-                    setOnClickListener {
-                        println("Note $note# pressée")
-                    }
+                text = "Note $note"
+                setTextColor(Color.WHITE)
+                layoutParams = FrameLayout.LayoutParams(
+                    250, // Longueur touche
+                    90, // Largeur touche
+                    Gravity.TOP or Gravity.END
+                ).apply {
+                    marginEnd = 20
+                    topMargin = 70
                 }
+                elevation = 10f
+
+                // 👇 Applique le fond avec effet ripple
+                background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
+
+                setOnClickListener {
+                    println("Note $note# pressée")
+                }
+            }
 
                 noteFrame.addView(blackButton)
             }
