@@ -1,0 +1,107 @@
+package com.example.piano
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.view.Gravity
+import android.view.MotionEvent
+import android.view.ViewGroup
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.util.Log
+import androidx.core.content.ContextCompat
+
+class MainActivity : AppCompatActivity() {
+
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val pianoContainer = findViewById<LinearLayout>(R.id.pianoContainer)
+        pianoContainer.setBackgroundColor(Color.DKGRAY)
+
+        val blackNotePositions = setOf(1, 2, 4, 5, 6, 8, 9, 11, 12, 13)
+
+        for (note in 1..15) {
+            val noteFrame = FrameLayout(this).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    160
+                ).apply {
+                    setMargins(6, 6, 6, 6)
+                }
+            }
+
+            // === Touche blanche ===
+            val whiteButton = Button(this).apply {
+                text = "Note $note"
+                textSize = 16f
+                setBackgroundResource(R.drawable.white_button_background)
+                setTextColor(Color.BLACK)
+                layoutParams = FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    180
+                ).apply {
+                    marginEnd = if (blackNotePositions.contains(note)) 320 else 0
+                }
+                elevation = 1f
+
+                setOnTouchListener { _, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            sendNoteOverBluetooth("NOTE_ON:$note")
+                        }
+                        MotionEvent.ACTION_UP -> {
+                            sendNoteOverBluetooth("NOTE_OFF:$note")
+                        }
+                    }
+                    false
+                }
+            }
+
+            noteFrame.addView(whiteButton)
+
+            // === Touche noire ===
+            if (blackNotePositions.contains(note)) {
+                val blackButton = Button(this).apply {
+                    text = "Note ${note}#"
+                    textSize = 16f
+                    setTextColor(Color.WHITE)
+                    layoutParams = FrameLayout.LayoutParams(
+                        300,
+                        180,
+                        Gravity.TOP or Gravity.END
+                    ).apply {
+                        marginEnd = 0
+                        topMargin = 0
+                    }
+                    elevation = 10f
+                    background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
+
+                    setOnTouchListener { _, event ->
+                        when (event.action) {
+                            MotionEvent.ACTION_DOWN -> {
+                                sendNoteOverBluetooth("NOTE_ON:${note}#")
+                            }
+                            MotionEvent.ACTION_UP -> {
+                                sendNoteOverBluetooth("NOTE_OFF:${note}#")
+                            }
+                        }
+                        false
+                    }
+                }
+
+                noteFrame.addView(blackButton)
+                blackButton.bringToFront()
+            }
+
+            pianoContainer.addView(noteFrame)
+        }
+    }
+
+    private fun sendNoteOverBluetooth(note: String) {
+        // TODO: Remplacer cette ligne par l'envoi Bluetooth réel via votre socket
+        Log.d("Bluetooth", "Envoi de la note : $note")
+    }
+}
