@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             // === Touche noire === (si nécessaire à cette position)
             if (blackNotePositions.contains(note)) {
                 val blackButton = Button(this).apply {
-                    text = "Note $note"               // Même texte que la touche blanche
+                    text = "Note $note  "               // Même texte que la touche blanche
                     textSize = 16f
                     setTextColor(Color.WHITE)         // Texte en blanc pour contraste
 
