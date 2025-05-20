@@ -12,4 +12,5 @@
         android:padding="8dp"
         android:clipToPadding="false"
         android:background="@android:color/black" /> <!-- Fond noir ajouté ici -->
+
 </ScrollView>
