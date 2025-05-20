@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 text = "Note $note"
                 setTextColor(Color.WHITE)
                 layoutParams = FrameLayout.LayoutParams(
-                    250, // Longueur touche
+                    300, // Longueur touche
                     90, // Largeur touche
                     Gravity.TOP or Gravity.END
                 ).apply {
