@@ -53,12 +53,12 @@ class MainActivity : AppCompatActivity() {
                     text = ""
                     setBackgroundColor(Color.BLACK)
                     layoutParams = FrameLayout.LayoutParams(
-                        250,
-                        100,
+                        250, // Longueur touche
+                        90, // Largeur touche
                         Gravity.TOP or Gravity.END
                     ).apply {
                         marginEnd = 20 // <-- position horizontale
-                        topMargin = 60 // <-- ajoute ceci pour ajuster verticalement
+                        topMargin = 70 // <-- ajoute ceci pour ajuster verticalement
                     }
                     elevation = 10f
                     setOnClickListener {
