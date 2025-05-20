@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         pianoContainer.setBackgroundColor(Color.BLACK)
 
         // Liste des positions où une touche noire est présente
-        val blackNotePositions = setOf(1, 2, 4, 5, 6, 8, 9, 11, 13, 14, 16, 17, 18)
+        val blackNotePositions = setOf(1, 2, 4, 5, 6, 8, 9, 11, 12, 13,)
 
         // Boucle sur 15 notes blanches (clavier 25 )
         for (note in 1..15) {
