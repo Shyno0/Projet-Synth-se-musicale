@@ -1,82 +1,96 @@
 package com.example.piano
 
+// Importation des classes nécessaires
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import android.graphics.Color
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat // Pour charger des ressources compatibles (comme drawables)
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Lie cette activité à un layout XML (activity_main.xml)
         setContentView(R.layout.activity_main)
 
+        // Récupère le conteneur de touches défini dans le XML (LinearLayout)
         val pianoContainer = findViewById<LinearLayout>(R.id.pianoContainer)
+
+        // Change le fond du conteneur en noir (ressemble au fond d’un vrai piano)
         pianoContainer.setBackgroundColor(Color.BLACK)
 
-        // Positions où il y a une touche noire après la blanche (comme C -> C#)
+        // Liste des positions où une touche noire est présente
         val blackNotePositions = setOf(1, 2, 4, 5, 6, 8, 9, 11, 13, 14, 16, 17, 18)
 
+        // Boucle sur 15 notes blanches (clavier 25 )
         for (note in 1..15) {
-            // Chaque note est un FrameLayout (pour superposer noir/blanc)
+
+            // Crée un cadre (FrameLayout) qui contiendra la superposition des touches blanche/noire
             val noteFrame = FrameLayout(this).apply {
                 layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    160 // hauteur totale d'une touche
+                    160 // Hauteur fixe d’une touche blanche
                 ).apply {
-                    setMargins(8, 8, 8, 8)
+                    // Marge entre chaque touche blanche (espacement visuel)
+                    setMargins(6, 6, 6, 6)
                 }
             }
 
-            // Touche blanche
+            // === Touche blanche ===
             val whiteButton = Button(this).apply {
-                text = "Note $note"
-                textSize = 16f
-                setBackgroundResource(R.drawable.white_button_background)
-                setTextColor(Color.BLACK)
+                text = "Note $note"               // Affiche le numéro de la note
+                textSize = 16f                    // Taille du texte
+                setBackgroundResource(R.drawable.white_button_background) // Applique un fond avec effet pressé personnalisé
+                setTextColor(Color.BLACK)         // Couleur du texte
                 layoutParams = FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    180
+                    ViewGroup.LayoutParams.MATCH_PARENT, // Largeur : toute la largeur du frame
+                    180                                  // Hauteur légèrement plus grande que le conteneur (pour un effet visuel)
                 )
-                elevation = 1f // <- plus bas que la touche noir
+                elevation = 1f                         //Hauteur plus petite que la touche noir
                 setOnClickListener {
-                    println("Note $note pressée")
+                    println("Note $note pressée")     // Action lorsque la touche blanche est pressée
                 }
             }
 
+            // Ajoute la touche blanche dans le frame
             noteFrame.addView(whiteButton)
 
-            // Ajout de la touche noire uniquement à certaines positions
+            // === Touche noire === (si nécessaire à cette position)
             if (blackNotePositions.contains(note)) {
                 val blackButton = Button(this).apply {
-                    text = "Note $note"
+                    text = "Note $note"               // Même texte que la touche blanche
                     textSize = 16f
-                    setTextColor(Color.WHITE)
-                    layoutParams = FrameLayout.LayoutParams(
-                        300, // Longueur touche
-                        120, // Largeur touche
-                        Gravity.TOP or Gravity.END // Positionne la touche noire en haut à droite
-                    ).apply {
-                        marginEnd = 20 // Décale la touche noire vers la gauche
-                        topMargin = 40 // Décale la touche noire vers le bas
-                    }
-                    elevation = 10f
+                    setTextColor(Color.WHITE)         // Texte en blanc pour contraste
 
-                    // 👇 Applique le fond avec effet ripple
-                    background =
-                        ContextCompat.getDrawable(context, R.drawable.black_button_background)
+                    // Dimensions et position de la touche noire
+                    layoutParams = FrameLayout.LayoutParams(
+                        300,  // Longueur touche noire
+                        110,  // Largeur touche noire
+                        Gravity.TOP or Gravity.END // Aligne en haut à droite dans le FrameLayout
+                    ).apply {
+                        marginEnd = 20 // Décalage vers la gauche
+                        topMargin = 50 // Décalage vers le bas
+                    }
+
+                    elevation = 10f // Hauteur plus grande que la touche blanche
+
+                    // Fond personnalisé avec effet ripple (pression visuelle)
+                    background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
 
                     setOnClickListener {
-                        println("Note $note# pressée")
+                        println("Note $note# pressée") // Action lorsque la touche noire est pressée
                     }
                 }
 
+                // Ajoute la touche noire par-dessus la blanche
                 noteFrame.addView(blackButton)
             }
 
+            // Ajoute le frame (avec blanche + noire si présente) dans le conteneur principal
             pianoContainer.addView(noteFrame)
         }
     }
