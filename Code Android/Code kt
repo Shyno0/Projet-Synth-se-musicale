@@ -1,25 +1,36 @@
 package com.example.piano
 
+// Importations nécessaires pour la gestion de l'activité, de l'interface utilisateur et des couleurs
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import android.graphics.Color // Ajoute cette importation
+import android.graphics.Color // Pour définir la couleur de fond
+import android.graphics.drawable.Drawable // (Peut être supprimé si inutilisé)
 
 class MainActivity : AppCompatActivity() {
 
+    // Méthode appelée lors de la création de l'activité
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main) // Lie cette activité à son layout XML
 
+        // Récupération du conteneur LinearLayout défini dans le fichier XML (R.id.pianoContainer)
         val pianoContainer = findViewById<LinearLayout>(R.id.pianoContainer)
-        pianoContainer.setBackgroundColor(Color.BLACK) // Fond noir ajouté ici
+        
+        // Définir la couleur de fond du conteneur en noir
+        pianoContainer.setBackgroundColor(Color.BLACK)
 
-        for (note in 1..32) {
-            val button = Button(this).apply {
-                text = "Note $note"
-                textSize = 16f
+        // Boucle pour créer 25 boutons représentant les notes d’un clavier de piano
+        for (note in 1..25) {
+            // Création d’un bouton avec configuration
+            var button = Button(this).apply {
+                text = "Note $note" // Texte affiché sur le bouton
+                textSize = 16f // Taille du texte
+                setBackgroundResource(R.drawable.button_background) // Fond personnalisé via un drawable
+                
+                // Paramètres de mise en page : pleine largeur et hauteur fixe de 150px, avec marges
                 layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     150
@@ -30,13 +41,16 @@ class MainActivity : AppCompatActivity() {
                     bottomMargin = 8
                 }
 
+                // Action à effectuer lorsque le bouton est pressé
                 setOnClickListener {
-                    println("Note $note pressée")
+                    println("Note $note pressée") // Affiche la note dans la console (logcat)
                     // TODO : envoyer via Bluetooth ici
                 }
             }
 
+            // Ajout du bouton au conteneur LinearLayout
             pianoContainer.addView(button)
         }
     }
 }
+
