@@ -100,9 +100,10 @@ class MainActivity : AppCompatActivity() {
                             v.setBackgroundColor(Color.LTGRAY) // Animation d'appui visuel (modif)
                             sendNoteOverBluetooth("NOTE_ON:$note") // Envoie lors de l'appui
                         }
-                        MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> {
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP,
+                        MotionEvent.ACTION_CANCEL -> { // ← Gère les interruptions comme le scroll (ajout)
                             v.setBackgroundResource(R.drawable.white_button_background) // Reset visuel (modif)
-                            sendNoteOverBluetooth("NOTE_OFF:$note") // Envoie lors du relâchement
+                            sendNoteOverBluetooth("NOTE_OFF:$note") // Envoie lors du relâchement ou annulation
                         }
                     }
                     true // IMPORTANT : permet la gestion du multitouch (modif)
@@ -141,9 +142,10 @@ class MainActivity : AppCompatActivity() {
                             v.setBackgroundColor(Color.DKGRAY) // Animation d'appui visuel (modif)
                             sendNoteOverBluetooth("NOTE_ON:${note}#") // Envoie lors de l'appui
                         }
-                        MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> {
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP,
+                        MotionEvent.ACTION_CANCEL -> { // ← Gère les interruptions comme le scroll (ajout)
                             v.background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
-                            sendNoteOverBluetooth("NOTE_OFF:${note}#") // Envoie lors du relâchement
+                            sendNoteOverBluetooth("NOTE_OFF:${note}#") // Envoie lors du relâchement ou annulation
                         }
                     }
                     true // IMPORTANT : permet la gestion du multitouch (modif)
