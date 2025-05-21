@@ -55,7 +55,7 @@
                     FrameLayout.LayoutParams.MATCH_PARENT, // Largeur complète
                     FrameLayout.LayoutParams.WRAP_CONTENT  // Hauteur dépend du nombre de touches
                 )
-                orientation = LinearLayout.VERTICAL
+                orientation = LinearLayout.VERTICAL // Les touches seront empilées verticalement
             }
 
             // Ajout des conteneurs dans la hiérarchie (ordre important)
