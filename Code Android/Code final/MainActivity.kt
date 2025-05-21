@@ -27,8 +27,8 @@
             // Root Layout (FrameLayout) qui contient tout l'UI
             val rootLayout = FrameLayout(this).apply {
                 layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT
+                    FrameLayout.LayoutParams.MATCH_PARENT, // Prend toute la largeur de l'écran
+                    FrameLayout.LayoutParams.MATCH_PARENT  // Prend toute la hauteur de l'écran
                 )
                 setBackgroundColor(Color.DKGRAY) // Fond sombre pour ressembler à un vrai piano
             }
@@ -36,24 +36,24 @@
             // ScrollView vertical pour pouvoir faire défiler les touches du piano
             val scrollView = ScrollView(this).apply {
                 layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT
+                    FrameLayout.LayoutParams.MATCH_PARENT, // ScrollView prend toute la largeur
+                    FrameLayout.LayoutParams.MATCH_PARENT  // ScrollView prend toute la hauteur
                 )
             }
 
             // Conteneur principal du piano (touches blanches + touches noires superposées)
             val pianoContainer = FrameLayout(this).apply {
                 layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT
+                    FrameLayout.LayoutParams.MATCH_PARENT, // Largeur complète
+                    FrameLayout.LayoutParams.WRAP_CONTENT  // Hauteur ajustée selon les touches
                 )
             }
 
             // Conteneur vertical pour les touches blanches uniquement
             val whiteKeyContainer = LinearLayout(this).apply {
                 layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT
+                    FrameLayout.LayoutParams.MATCH_PARENT, // Largeur complète
+                    FrameLayout.LayoutParams.WRAP_CONTENT  // Hauteur dépend du nombre de touches
                 )
                 orientation = LinearLayout.VERTICAL
             }
@@ -142,4 +142,3 @@
             }
         }
     }
-
