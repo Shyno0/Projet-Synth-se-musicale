@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         for (note in 1..totalWhiteKeys) {
             val whiteKey = Button(this).apply {
                 text = "Note $note"
+                textSize = 0f // Mettre a 16f pour afficher la valeur des touches
                 setTextColor(Color.BLACK)
                 setBackgroundResource(R.drawable.white_button_background)
                 layoutParams = LinearLayout.LayoutParams(
@@ -87,8 +88,8 @@ class MainActivity : AppCompatActivity() {
                 // Événement tactile : envoie la note au toucher
                 setOnTouchListener { _, event ->
                     when (event.action) {
-                        MotionEvent.ACTION_DOWN -> sendNoteOverBluetooth("NOTE_ON:$note")
-                        MotionEvent.ACTION_UP -> sendNoteOverBluetooth("NOTE_OFF:$note")
+                        MotionEvent.ACTION_DOWN -> sendNoteOverBluetooth("NOTE_ON:$note") // Appuie envoie d'une information
+                        MotionEvent.ACTION_UP -> sendNoteOverBluetooth("NOTE_OFF:$note")  // relachement envoie d'une information
                     }
                     false
                 }
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         for (note in blackNotePositions) {
             val blackKey = Button(this).apply {
                 text = "Note ${note}#"
+                textSize = 0f // Mettre a 16f pour afficher la valeur des touches
                 setTextColor(Color.WHITE)
                 background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
 
@@ -134,4 +136,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
