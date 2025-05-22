@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         // === Création de la hiérarchie des vues ===
 
-        // Root Layout (FrameLayout) qui contient tout l'UI
+        // Root Layout (FrameLayout) qui contient tout l'interface utilisateur (UI)
         val rootLayout = FrameLayout(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, // Prend toute la largeur de l'écran
