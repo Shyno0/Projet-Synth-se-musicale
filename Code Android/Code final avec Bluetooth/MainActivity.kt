@@ -1,4 +1,3 @@
-
 package com.example.piano
 
 // Importations nécessaires
