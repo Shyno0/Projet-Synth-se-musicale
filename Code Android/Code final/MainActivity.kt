@@ -18,6 +18,20 @@ class MainActivity : AppCompatActivity() {
         Log.d("Bluetooth", "Sending note: $note")
     }
 
+    // Liste des noms de notes blanches avec octave (du C4 au C6)
+    private val whiteNotes = listOf(
+        "C4", "D4", "E4", "F4", "G4", "A4", "B4",
+        "C5", "D5", "E5", "F5", "G5", "A5", "B5", "C6"
+    )
+
+    // Map des positions de touches noires et leur nom réel
+    private val blackNotesMap = mapOf(
+        0 to "C#4", 1 to "D#4",
+        3 to "F#4", 4 to "G#4", 5 to "A#4",
+        7 to "C#5", 8 to "D#5",
+        10 to "F#5", 11 to "G#5", 12 to "A#5"
+    )
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,10 +93,12 @@ class MainActivity : AppCompatActivity() {
         val blackNotePositions = setOf(1, 2, 4, 5, 6, 8, 9, 11, 12, 13)
 
         // === Création des touches blanches ===
-        for (note in 1..totalWhiteKeys) {
+        for (i in 0 until totalWhiteKeys) {
+            val noteName = whiteNotes.getOrNull(i) ?: "Note $i" // Nom de la note réelle
+
             val whiteKey = Button(this).apply {
-                text = "Note $note"  // Nom de la note
-                textSize = 0f        // 0f pour ne pas afficher le texte. Remplacer par 16f pour debug
+                text = noteName  // Nom de la note réelle (ex: C4)
+                textSize = 0f    // 0f pour ne pas afficher le texte. Remplacer par 16f pour debug
                 setTextColor(Color.BLACK)
                 setBackgroundResource(R.drawable.white_button_background) // Style personnalisé
 
@@ -98,12 +114,12 @@ class MainActivity : AppCompatActivity() {
                     when (event.actionMasked) {
                         MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
                             v.setBackgroundColor(Color.LTGRAY) // Animation d'appui visuel (modif)
-                            sendNoteOverBluetooth("NOTE_ON:$note") // Envoie lors de l'appui
+                            sendNoteOverBluetooth("ON:$noteName") // Envoie lors de l'appui
                         }
                         MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP,
                         MotionEvent.ACTION_CANCEL -> { // ← Gère les interruptions comme le scroll (ajout)
                             v.setBackgroundResource(R.drawable.white_button_background) // Reset visuel (modif)
-                            sendNoteOverBluetooth("NOTE_OFF:$note") // Envoie lors du relâchement ou annulation
+                            sendNoteOverBluetooth("OFF:$noteName") // Envoie lors du relâchement ou annulation
                         }
                     }
                     true // IMPORTANT : permet la gestion du multitouch (modif)
@@ -114,10 +130,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         // === Création des touches noires (superposées aux blanches) ===
-        for (note in blackNotePositions) {
+        for ((position, noteName) in blackNotesMap) {
             val blackKey = Button(this).apply {
-                text = "Note ${note}#"  // Nom de la note avec dièse
-                textSize = 0f           // 0f pour ne pas afficher le texte. Remplacer par 16f pour debug
+                text = noteName  // Nom de la note avec dièse
+                textSize = 0f    // 0f pour ne pas afficher le texte. Remplacer par 16f pour debug
                 setTextColor(Color.WHITE)
                 background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
 
@@ -130,7 +146,7 @@ class MainActivity : AppCompatActivity() {
                     blackHeight
                 ).apply {
                     leftMargin = (keyWidth * 0.45).toInt()             // Centrée horizontalement
-                    topMargin = ((note - 1) * (keyHeightPx + 8)) + 90 // Décalée verticalement selon note (90 Tab/130 ph)
+                    topMargin = ((position) * (keyHeightPx + 8)) + 130 // Décalée verticalement selon note
                 }
 
                 elevation = 12f // Plus élevée que les touches blanches pour apparaître au-dessus
@@ -140,12 +156,12 @@ class MainActivity : AppCompatActivity() {
                     when (event.actionMasked) {
                         MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
                             v.setBackgroundColor(Color.DKGRAY) // Animation d'appui visuel (modif)
-                            sendNoteOverBluetooth("NOTE_ON:${note}#") // Envoie lors de l'appui
+                            sendNoteOverBluetooth("NOTE_ON:$noteName") // Envoie lors de l'appui
                         }
                         MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP,
                         MotionEvent.ACTION_CANCEL -> { // ← Gère les interruptions comme le scroll (ajout)
                             v.background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
-                            sendNoteOverBluetooth("NOTE_OFF:${note}#") // Envoie lors du relâchement ou annulation
+                            sendNoteOverBluetooth("NOTE_OFF:$noteName") // Envoie lors du relâchement ou annulation
                         }
                     }
                     true // IMPORTANT : permet la gestion du multitouch (modif)
