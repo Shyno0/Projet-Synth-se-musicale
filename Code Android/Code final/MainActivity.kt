@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         // Convertit 100dp en pixels pour la hauteur des touches blanches
         val keyHeightPx = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, 80f, resources.displayMetrics
+            TypedValue.COMPLEX_UNIT_DIP, 75f, resources.displayMetrics
         ).toInt()
 
         val keyWidth = resources.displayMetrics.widthPixels // Largeur d'une touche = largeur écran
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                     blackHeight
                 ).apply {
                     leftMargin = (keyWidth * 0.45).toInt()             // Centrée horizontalement
-                    topMargin = ((note - 1) * (keyHeightPx + 8)) + 140 // Décalée verticalement selon note (95 Tab/140 ph)
+                    topMargin = ((note - 1) * (keyHeightPx + 8)) + 90 // Décalée verticalement selon note (90 Tab/130 ph)
                 }
 
                 elevation = 12f // Plus élevée que les touches blanches pour apparaître au-dessus
