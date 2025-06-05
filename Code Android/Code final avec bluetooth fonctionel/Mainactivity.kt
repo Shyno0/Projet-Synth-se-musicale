@@ -1,27 +1,29 @@
 package com.example.piano
 
 // === Importations nécessaires pour Android ===
-import android.annotation.SuppressLint
-import android.graphics.Color
-import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
-import android.view.MotionEvent
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+// Importations de base pour une application Android
+import android.annotation.SuppressLint // Utilisé pour supprimer les avertissements Lint, ici pour ClickableViewAccessibility
+import android.graphics.Color // Pour définir les couleurs de l'interface utilisateur
+import android.os.Bundle // Pour gérer l'état de l'activité
+import android.util.Log // Pour les logs de débogage
+import android.util.TypedValue // Pour convertir des unités de dimension (dp en pixels)
+import android.view.MotionEvent // Pour gérer les événements tactiles (appuis sur les touches)
+import android.widget.* // Importe toutes les classes de widgets Android
+import androidx.appcompat.app.AppCompatActivity // Classe de base pour les activités compatibles avec les anciennes versions d'Android
+import androidx.core.content.ContextCompat // Pour accéder aux ressources de manière compatible
 
 // === Importations Bluetooth ===
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothManager
-import android.bluetooth.BluetoothSocket
-import android.content.Context
-import android.content.Intent
-import java.io.IOException
-import java.io.OutputStream
-import java.util.UUID
-import android.app.AlertDialog
+// Classes spécifiques pour la gestion du Bluetooth sur Android
+import android.bluetooth.BluetoothAdapter // Représente l'adaptateur Bluetooth local de l'appareil
+import android.bluetooth.BluetoothDevice // Représente un appareil Bluetooth distant
+import android.bluetooth.BluetoothManager // Permet d'obtenir l'adaptateur Bluetooth
+import android.bluetooth.BluetoothSocket // Gère la connexion réseau Bluetooth
+import android.content.Context // Contexte de l'application, nécessaire pour de nombreuses opérations système
+import android.content.Intent // Utilisé pour lancer d'autres activités ou services (par exemple, activer le Bluetooth)
+import java.io.IOException // Pour gérer les erreurs d'entrée/sortie (souvent liées au Bluetooth)
+import java.io.OutputStream // Pour envoyer des données via le socket Bluetooth
+import java.util.UUID // Pour les identifiants uniques des services Bluetooth
+import android.app.AlertDialog // Pour afficher des boîtes de dialogue (sélection d'appareils appairés)
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,10 +33,8 @@ class MainActivity : AppCompatActivity() {
     private var bluetoothSocket: BluetoothSocket? = null
     private var outputStream: OutputStream? = null
 
-    // UUID (Universally Unique Identifier) pour votre service Bluetooth.
-    // Il doit être le même côté client et serveur (l'appareil auquel vous vous connectez).
-    // Ceci est un UUID standard pour le profil Serial Port Profile (SPP), souvent utilisé pour les microcontrôleurs.
-    private val MY_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") // UUID SPP
+    // UUID standard (Universally Unique Identifier), Il doit être le même côté client et serveur
+    private val MY_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
 
     // Constantes pour les requêtes de permissions/activation Bluetooth
     private val REQUEST_BLUETOOTH_PERMISSIONS = 1
@@ -289,8 +289,6 @@ class MainActivity : AppCompatActivity() {
 
         // === Dimensions des touches ===
 
-        val totalWhiteKeys = 15 // Nombre de touches blanches : de C4 à C6 inclus
-
         // Convertit 75dp en pixels pour une taille cohérente sur tous les écrans
         val keyHeightPx = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, 75f, resources.displayMetrics
@@ -299,10 +297,6 @@ class MainActivity : AppCompatActivity() {
         // La largeur d'une touche = largeur totale de l'écran (en mode vertical)
         val keyWidth = resources.displayMetrics.widthPixels
 
-        // Positions spécifiques où dessiner une touche noire (entre les touches blanches)
-        // Ces indices correspondent à des positions verticales
-        val blackNotePositions = setOf(1, 2, 4, 5, 6, 8, 9, 11, 12, 13)
-
         // === Liste des noms réels des notes (touches blanches) ===
         // Chaque touche blanche a une note correspondant à une octave réelle
         val whiteNotes = listOf(
@@ -310,7 +304,8 @@ class MainActivity : AppCompatActivity() {
             "C5", "D5", "E5", "F5", "G5", "A5", "B5", "C6"
         )
 
-        // === Map des touches noires avec leur position et nom réel ===
+        // === Liste des noms réels des notes (touches noires) ===
+        // Chaque touche noires a une note correspondant à une octave réelle
         val blackNotes = mapOf(
             1 to "C#4", 2 to "D#4", 4 to "F#4", 5 to "G#4", 6 to "A#4",
             8 to "C#5", 9 to "D#5", 11 to "F#5", 12 to "G#5", 13 to "A#5"
@@ -320,7 +315,7 @@ class MainActivity : AppCompatActivity() {
         for ((index, noteName) in whiteNotes.withIndex()) {
             val whiteKey = Button(this).apply {
                 text = noteName
-                textSize = 0f
+                textSize = 16f // Affiche la valeur des touches pour le debug
                 setTextColor(Color.BLACK)
                 setBackgroundResource(R.drawable.white_button_background) // Style personnalisé
 
@@ -355,7 +350,7 @@ class MainActivity : AppCompatActivity() {
         for ((position, noteName) in blackNotes) {
             val blackKey = Button(this).apply {
                 text = noteName // Affiche la note noire (ex: C#4)
-                textSize = 0f
+                textSize = 16f  // Affiche la valeur des touches pour le debug
                 setTextColor(Color.WHITE)
                 background = ContextCompat.getDrawable(context, R.drawable.black_button_background)
 
