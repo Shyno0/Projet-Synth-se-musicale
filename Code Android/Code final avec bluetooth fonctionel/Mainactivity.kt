@@ -1,32 +1,31 @@
 package com.example.piano
 
 // === Importations nécessaires pour Android ===
-// Importations de base pour une application Android
-import android.annotation.SuppressLint // Utilisé pour supprimer les avertissements Lint, ici pour ClickableViewAccessibility
-import android.graphics.Color // Pour définir les couleurs de l'interface utilisateur
-import android.os.Bundle // Pour gérer l'état de l'activité
-import android.util.Log // Pour les logs de débogage
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue // Pour convertir des unités de dimension (dp en pixels)
-import android.view.MotionEvent // Pour gérer les événements tactiles (appuis sur les touches)
-import android.widget.* // Importe toutes les classes de widgets Android
-import androidx.appcompat.app.AppCompatActivity // Classe de base pour les activités compatibles avec les anciennes versions d'Android
+import android.view.MotionEvent
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat // Pour accéder aux ressources de manière compatible
 
 // === Importations Bluetooth ===
-// Classes spécifiques pour la gestion du Bluetooth sur Android
-import android.bluetooth.BluetoothAdapter // Représente l'adaptateur Bluetooth local de l'appareil
-import android.bluetooth.BluetoothDevice // Représente un appareil Bluetooth distant
-import android.bluetooth.BluetoothManager // Permet d'obtenir l'adaptateur Bluetooth
-import android.bluetooth.BluetoothSocket // Gère la connexion réseau Bluetooth
-import android.content.Context // Contexte de l'application, nécessaire pour de nombreuses opérations système
-import android.content.Intent // Utilisé pour lancer d'autres activités ou services (par exemple, activer le Bluetooth)
-import java.io.IOException // Pour gérer les erreurs d'entrée/sortie (souvent liées au Bluetooth)
-import java.io.OutputStream // Pour envoyer des données via le socket Bluetooth
-import java.util.UUID // Pour les identifiants uniques des services Bluetooth
-import android.app.AlertDialog // Pour afficher des boîtes de dialogue (sélection d'appareils appairés)
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothManager
+import android.bluetooth.BluetoothSocket
+import android.content.Context
+import android.content.Intent
+import java.io.IOException
+import java.io.OutputStream
+import java.util.UUID
+import android.app.AlertDialog
+import android.view.Gravity // Importation ajoutée pour Gravity
+
 
 class MainActivity : AppCompatActivity() {
-
 
     // === Variables Bluetooth ===
     private var bluetoothAdapter: BluetoothAdapter? = null
@@ -40,7 +39,10 @@ class MainActivity : AppCompatActivity() {
     private val REQUEST_BLUETOOTH_PERMISSIONS = 1
     private val REQUEST_ENABLE_BT = 2
 
-    // === Fonction d'envoi d'une note via Bluetooth (réelle) ===
+    // Référence au bouton Bluetooth pour pouvoir le mettre à jour
+    private lateinit var bluetoothConnectButton: ImageButton // Utilisez ImageButton pour l'icône seule
+
+    // === Fonction d'envoi d'une note via Bluetooth  ===
     private fun sendNoteOverBluetooth(note: String) {
         if (outputStream != null) {
             // L'envoi doit être fait sur un thread séparé pour ne pas bloquer l'interface utilisateur
@@ -52,19 +54,19 @@ class MainActivity : AppCompatActivity() {
                 } catch (e: IOException) {
                     Log.e("Bluetooth", "Erreur lors de l'envoi de la note: $note", e)
                     runOnUiThread {
-                        Toast.makeText(this, "Échec de l'envoi de la note: $note", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Échec de l'envoi ", Toast.LENGTH_SHORT).show()
                     }
                 }
             }.start()
         } else {
             Log.w("Bluetooth", "Non connecté à un appareil Bluetooth. Note: $note non envoyée.")
             runOnUiThread {
-                Toast.makeText(this, "Bluetooth non connecté. Veuillez connecter un appareil.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Bluetooth non connecté.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // === Vérifie dynamiquement les permissions Bluetooth ===
+    // === Vérifie les permissions Bluetooth de AndroidManifest ===
     private fun checkAndRequestBluetoothPermissions() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             val permissionsToRequest = mutableListOf<String>()
@@ -88,12 +90,22 @@ class MainActivity : AppCompatActivity() {
         } else {
             // Pour les versions antérieures à Android 12, les permissions sont déjà dans le Manifest
             // (BLUETOOTH et BLUETOOTH_ADMIN) et ACCESS_FINE_LOCATION pour la découverte.
-            // On peut tenter d'activer le Bluetooth directement.
-            enableBluetooth()
+            // On ajoute la vérification de ACCESS_FINE_LOCATION
+            val permissionsToRequest = mutableListOf<String>()
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(android.Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+            if (permissionsToRequest.isNotEmpty()) {
+                requestPermissions(permissionsToRequest.toTypedArray(), REQUEST_BLUETOOTH_PERMISSIONS)
+            } else {
+                enableBluetooth()
+            }
         }
     }
+    // === Vérifie les permissions Bluetooth de AndroidManifest ===
 
-    // Gère le résultat de la demande de permissions
+    // === Gère le résultat de la demande de permissions ===
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_BLUETOOTH_PERMISSIONS) {
@@ -105,6 +117,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    // === Gère le résultat de la demande de permissions et active ou non le Bluetooth==
 
     // Active le Bluetooth si nécessaire
     private fun enableBluetooth() {
@@ -188,7 +201,7 @@ class MainActivity : AppCompatActivity() {
                     return@Thread // Sortir du thread si la permission est manquante
                 }
 
-                // Fermer un socket précédemment ouvert si il existe
+                // Ferme un socket précédemment ouvert si il existe
                 try {
                     bluetoothSocket?.close()
                 } catch (e: IOException) {
@@ -203,11 +216,15 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Bluetooth", "Connecté à ${device.name}")
                 runOnUiThread {
                     Toast.makeText(this, "Connecté à ${device.name}", Toast.LENGTH_SHORT).show()
+                    // Si vous voulez indiquer le nom de l'appareil connecté via une Toast ou un autre élément UI, faites-le ici.
+                    // Pour le bouton qui est juste une icône, il n'y a pas de texte à mettre à jour.
                 }
             } catch (e: IOException) {
                 Log.e("Bluetooth", "Erreur de connexion à l'appareil: ${e.message}", e)
                 runOnUiThread {
-                    Toast.makeText(this, "Échec de la connexion à ${device.name}: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Échec de la connexion à ${device.name} ", Toast.LENGTH_LONG).show()
+                    // Si la connexion échoue, vous pouvez changer l'icône du bouton pour indiquer un état non connecté si vous avez une icône "non connectée".
+                    // Pour l'instant, on laisse l'icône par default.
                 }
                 // Tenter de fermer le socket en cas d'erreur
                 try {
@@ -227,16 +244,17 @@ class MainActivity : AppCompatActivity() {
         // Demande les permissions Bluetooth si nécessaire
         checkAndRequestBluetoothPermissions()
 
-        // === Création de la hiérarchie graphique (UI) ===
-
+        // === Création de la vue racine (layout principal) ===
+        // FrameLayout est un conteneur qui permet de superposer des éléments il va servir à contenir toute l'interface du piano
         val rootLayout = FrameLayout(this).apply {
             layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
+                FrameLayout.LayoutParams.MATCH_PARENT, // Prend toute la largeur de l'écran
+                FrameLayout.LayoutParams.MATCH_PARENT  // Prend toute la hauteur de l'écran
             )
-            setBackgroundColor(Color.DKGRAY) // Fond sombre pour simuler un piano
+            setBackgroundColor(Color.DKGRAY) // Couleur de fond sombre pour imiter l'aspect d'un piano
         }
 
+        // === Création d'un ScrollView pour permettre le défilement vertical ===
         val scrollView = ScrollView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
@@ -244,38 +262,43 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        // === Conteneur pour accueillir les touches blanches et noires
         val pianoContainer = FrameLayout(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
+                FrameLayout.LayoutParams.WRAP_CONTENT // S'ajuste en hauteur selon le contenu (les touches)
             )
         }
 
+        // Conteneur des touches blanches LinearLayout vertical qui empile les touches blanches les unes au-dessus des autres
         val whiteKeyContainer = LinearLayout(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT
             )
-            orientation = LinearLayout.VERTICAL // Empile les touches verticalement
+            orientation = LinearLayout.VERTICAL // Les touches sont disposées verticalement
         }
 
+
         // Bouton de connexion Bluetooth
-        val bluetoothConnectButton = Button(this).apply {
-            text = "Bluetooth"
-            setBackgroundColor(Color.BLUE)
-            setTextColor(Color.WHITE)
+        val iconSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48f, resources.displayMetrics).toInt() // Taille de l'icône
+        val marginPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics).toInt()   // Marge
+
+        bluetoothConnectButton = ImageButton(this).apply {
+            setImageResource(R.drawable.baseline_bluetooth_24) // Définit l'icône
+            setBackgroundColor(Color.TRANSPARENT) // Rendre le fond transparent
+
             setOnClickListener {
                 enableBluetooth() // Lancer le processus de connexion
             }
-            // Positionner le bouton en haut à gauche
+            // Positionner le bouton en haut à droite
             val params = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
+                iconSizePx,
+                iconSizePx
             ).apply {
-                // Combinaison de Gravity.TOP et Gravity.START (ou Gravity.LEFT)
-                gravity = android.view.Gravity.TOP or android.view.Gravity.START
-                topMargin = 10 // Marge par rapport au haut
-                leftMargin = 10 // Marge par rapport à la gauche
+                gravity = Gravity.TOP or Gravity.END // CHANGEMENT : Place le bouton en haut à droite
+                topMargin = marginPx
+                rightMargin = marginPx // CHANGEMENT : Utilise rightMargin pour la marge droite
             }
             layoutParams = params
         }
@@ -296,6 +319,18 @@ class MainActivity : AppCompatActivity() {
 
         // La largeur d'une touche = largeur totale de l'écran (en mode vertical)
         val keyWidth = resources.displayMetrics.widthPixels
+
+        // Convertit 3dp en pixels pour la marge des touches
+        val keyMarginPx = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 3f, resources.displayMetrics
+        ).toInt()
+
+        // Convertit 62dp en pixels pour le décalage vertical des touches noires (ajusté pour le bouton Bluetooth)
+        // Note: l'offset pourrait nécessiter un ajustement fin si la taille du bouton icône diffère beaucoup de l'ancien bouton texte.
+        val blackKeyVerticalOffsetPx = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 62f, resources.displayMetrics
+        ).toInt()
+
 
         // === Liste des noms réels des notes (touches blanches) ===
         // Chaque touche blanche a une note correspondant à une octave réelle
@@ -323,7 +358,7 @@ class MainActivity : AppCompatActivity() {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     keyHeightPx
                 ).apply {
-                    setMargins(0, 4, 0, 4) // Petite marge entre les touches
+                    setMargins(0, keyMarginPx, 0, keyMarginPx) // Petite marge entre les touches
                 }
 
                 // Gestion des événements tactiles (appui et relâchement)
@@ -364,12 +399,10 @@ class MainActivity : AppCompatActivity() {
                 ).apply {
                     leftMargin = (keyWidth * 0.45).toInt() // Décalage horizontal pour centrer
                     // topMargin doit être ajusté pour éviter le bouton de connexion Bluetooth
-                    // Le bouton de connexion occupe les 20dp de marge + sa hauteur.
-                    // Estimation simple : 100dp pour le bouton + marge, si le bouton est en haut.
-                    topMargin = ((position - 1) * (keyHeightPx + 8)) +130 // Ajustement pour le bouton
+                    topMargin = ((position - 1) * (keyHeightPx + (2 * keyMarginPx))) + blackKeyVerticalOffsetPx // Ajustement pour le bouton
                 }
 
-                elevation = 12f // S'assure que la touche noire est au-dessus visuellement
+                elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, resources.displayMetrics) // S'assure que la touche noire est au-dessus visuellement
 
                 // Gestion des événements tactiles
                 setOnTouchListener { v, event ->
@@ -387,17 +420,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            // Ajoute la touche noire par-dessus les touches blanches
-            pianoContainer.addView(blackKey)
+            pianoContainer.addView(blackKey) // Ajoute la touche noire par-dessus les touches blanches
         }
     }
 
-    // Assurez-vous de fermer le socket Bluetooth lorsque l'activité est détruite pour éviter les fuites de ressources
+    // Assure de fermer le socket Bluetooth lorsque l'activité est détruite pour éviter les fuites de ressources
     override fun onDestroy() {
         super.onDestroy()
         try {
             outputStream?.close()
             bluetoothSocket?.close()
+            // Pas de texte à réinitialiser pour un ImageButton
         } catch (e: IOException) {
             Log.e("Bluetooth", "Erreur lors de la fermeture des flux/sockets Bluetooth", e)
         }
