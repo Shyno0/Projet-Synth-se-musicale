@@ -1,0 +1,25 @@
+--cpu Cortex-M3
+".\objects\main.o"
+".\objects\adc_mcbstm32f200.o"
+".\objects\led_mcbstm32f200.o"
+".\objects\stm32f2xx_hal.o"
+".\objects\stm32f2xx_hal_adc.o"
+".\objects\stm32f2xx_hal_adc_ex.o"
+".\objects\stm32f2xx_hal_cortex.o"
+".\objects\stm32f2xx_hal_dac.o"
+".\objects\stm32f2xx_hal_dac_ex.o"
+".\objects\stm32f2xx_hal_dma.o"
+".\objects\stm32f2xx_hal_dma_ex.o"
+".\objects\stm32f2xx_hal_gpio.o"
+".\objects\stm32f2xx_hal_rcc.o"
+".\objects\stm32f2xx_hal_rcc_ex.o"
+".\objects\stm32f2xx_hal_rtc.o"
+".\objects\stm32f2xx_hal_rtc_ex.o"
+".\objects\stm32f2xx_hal_tim.o"
+".\objects\stm32f2xx_hal_tim_ex.o"
+".\objects\startup_stm32f207xx.o"
+".\objects\system_stm32f2xx.o"
+--strict --scatter ".\Objects\Projet_V3.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\Projet_V3.map" -o .\Objects\Projet_V3.axf
