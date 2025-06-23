@@ -1,0 +1,175 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.17.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: iut cachan iut cachan Flex license: MDK-ARM Professional: 25 user(s) (mdk_pro) Operation stops: 11 Apr 2027
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional: 25 user(s)  Version: 5.17
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 1 (build 61)
+Assembler:       Armasm.exe V5.06 update 1 (build 61)
+Linker/Locator:  ArmLink.exe V5.06 update 1 (build 61)
+Library Manager: ArmAr.exe V5.06 update 1 (build 61)
+Hex Converter:   FromElf.exe V5.06 update 1 (build 61)
+CPU DLL:         SARMCM3.DLL V5.17
+Dialog DLL:      DCM.DLL V1.13.4.0
+Target DLL:      UL2CM3.DLL V1.156.1.0
+Dialog DLL:      TCM.DLL V1.14.6.0
+ 
+<h2>Project:</h2>
+U:\projet bleutooth\Bluetooth\Projet_V2 CURTYS\Projet_V3 curtys connection avec la tablette.uvprojx
+Project File Date:  05/22/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'Target 1'
+compiling main.c...
+main.c(161): warning:  #1-D: last line of file ends without a newline
+  }
+main.c: 1 warning, 0 errors
+compiling RTX_Conf_CM.c...
+compiling stm32f2xx_hal_cortex.c...
+compiling stm32f2xx_hal.c...
+assembling startup_stm32f207xx.s...
+compiling stm32f2xx_hal_rcc.c...
+compiling stm32f2xx_hal_usart.c...
+compiling LED_MCBSTM32F200.c...
+compiling stm32f2xx_hal_gpio.c...
+compiling stm32f2xx_hal_dma.c...
+compiling stm32f2xx_hal_uart.c...
+compiling stm32f2xx_hal_dma_ex.c...
+compiling stm32f2xx_hal_rcc_ex.c...
+compiling USART_STM32F2xx.c...
+compiling system_stm32f2xx.c...
+linking...
+Program Size: Code=14860 RO-data=768 RW-data=96 ZI-data=4840  
+".\Objects\Projet_V2.axf" - 0 Error(s), 1 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.6.0.pack
+                ::CMSIS:RTOS:1.0.0 (API)
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: RTOS Version: 1.0.0
+   * Component: USART Version: 2.3.0
+   * Component: Keil RTX Version: 4.82.0
+   * Component: CORE Version: 5.3.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.MDK-Middleware.7.0.0.pack
+                ::Board Support:LED:1.00 (API)
+                Keil MDK-ARM Professional Middleware for ARM Cortex-M based devices
+   * Component: LED Version: 1.00
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F2xx_DFP.2.10.0.pack
+                ::Device:STM32Cube Framework:1.0.0 (API)
+                STMicroelectronics STM32F2 Series Device Support, Drivers and Examples
+   * Component: STM32Cube Framework Version: 1.0.0
+   * Component: Startup Version: 2.2.1
+   * Component: Classic Version: 1.2.7
+   * Component: Common Version: 1.2.7
+   * Component: DMA Version: 1.2.7
+   * Component: GPIO Version: 1.2.7
+   * Component: Cortex Version: 1.2.7
+   * Component: LED Version: 2.0.0
+   * Component: USART Version: 1.2.7
+   * Component: UART Version: 1.2.7
+   * Component: USART Version: 2.11
+   * Component: RCC Version: 1.2.7
+
+<h2>Collection of Component include folders:</h2>
+  U:\projet bleutooth\Bluetooth\Projet_V2 CURTYS\RTE
+  U:\projet bleutooth\Bluetooth\Projet_V2 CURTYS\RTE\Device\STM32F207IGHx
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC
+  C:\Keil_v5\ARM\PACK\Keil\MDK-Middleware\7.0.0\Board
+  C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include
+  C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ::CMSIS:RTOS:1.0.0 (API)
+
+   * Component: ::CMSIS Driver:USART:2.3.0 (API)
+      Include file:  CMSIS\Driver\Include\Driver_USART.h
+
+   * Component: ARM::CMSIS:RTOS:Keil RTX:4.82.0
+      Library file:  CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib
+      Source file:   CMSIS\RTOS\RTX\SRC\ARM\SVC_Table.s
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\main.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MsgQueue.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Timer.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Semaphore.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Mutex.c
+      Source file:   CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c
+      Include file:  CMSIS\RTOS\RTX\INC\cmsis_os.h
+      Include file:  CMSIS\RTOS\RTX\UserCodeTemplates\osObjects.h
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MailQueue.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Thread.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MemPool.c
+
+   * Component: ARM::CMSIS:CORE:5.3.0
+
+   * Component: ::Board Support:LED:1.00 (API)
+      Include file:  Board\Board_LED.h
+
+   * Component: ::Device:STM32Cube Framework:1.0.0 (API)
+
+   * Component: Keil::Device:Startup:2.2.1
+      Source file:   MDK\Device\Source\ARM\STM32F2xx_OPT.s
+      Include file:  Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h
+      Source file:   MDK\Device\Source\ARM\STM32F2xx_OTP.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32F2xx\Source\Templates\system_stm32f2xx.c
+      Source file:   Drivers\CMSIS\Device\ST\STM32F2xx\Source\Templates\arm\startup_stm32f207xx.s
+
+   * Component: Keil::Device:STM32Cube Framework:Classic:1.2.7
+      Source file:   MDK\Templates\Src\stm32f2xx_hal_msp.c
+      Include file:  CMSIS\Driver\Config\RTE_Device.h
+      Include file:  MDK\Templates\Inc\stm32f2xx_it.h
+      Source file:   MDK\Templates\Src\stm32f2xx_it.c
+      Include file:  MDK\Templates\Inc\main.h
+      Source file:   MDK\Templates\Src\main.c
+      Source file:   MDK\Templates_LL\Src\main.c
+      Include file:  MDK\Templates\Inc\stm32f2xx_hal_conf.h
+      Include file:  MDK\Templates_LL\Inc\main.h
+
+   * Component: Keil::Device:STM32Cube HAL:Common:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c
+      Include file:  Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal.h
+
+   * Component: Keil::Device:STM32Cube HAL:DMA:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma_ex.c
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma.c
+
+   * Component: Keil::Device:STM32Cube HAL:GPIO:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_gpio.c
+
+   * Component: Keil::Device:STM32Cube HAL:Cortex:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_cortex.c
+
+   * Component: Keil.MCBSTM32F200::Board Support:LED:2.0.0
+      Source file:   MDK\Boards\Keil\MCBSTM32F200\Common\LED_MCBSTM32F200.c
+
+   * Component: Keil::Device:STM32Cube HAL:USART:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_usart.c
+
+   * Component: Keil::Device:STM32Cube HAL:UART:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_uart.c
+
+   * Component: Keil::CMSIS Driver:USART:2.11
+      Source file:   CMSIS\Driver\USART_STM32F2xx.c
+
+   * Component: Keil::Device:STM32Cube HAL:RCC:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc_ex.c
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc.c
+Build Time Elapsed:  00:00:10
+</pre>
+</body>
+</html>

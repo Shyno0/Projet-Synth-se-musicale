@@ -1,0 +1,21 @@
+--cpu Cortex-M3
+".\objects\main.o"
+".\objects\led_mcbstm32f200.o"
+"C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
+".\objects\rtx_conf_cm.o"
+".\objects\usart_stm32f2xx.o"
+".\objects\stm32f2xx_hal.o"
+".\objects\stm32f2xx_hal_cortex.o"
+".\objects\stm32f2xx_hal_dma.o"
+".\objects\stm32f2xx_hal_dma_ex.o"
+".\objects\stm32f2xx_hal_gpio.o"
+".\objects\stm32f2xx_hal_rcc.o"
+".\objects\stm32f2xx_hal_rcc_ex.o"
+".\objects\stm32f2xx_hal_uart.o"
+".\objects\stm32f2xx_hal_usart.o"
+".\objects\startup_stm32f207xx.o"
+".\objects\system_stm32f2xx.o"
+--strict --scatter ".\Objects\Projet_V2.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\Projet_V2.map" -o .\Objects\Projet_V2.axf
