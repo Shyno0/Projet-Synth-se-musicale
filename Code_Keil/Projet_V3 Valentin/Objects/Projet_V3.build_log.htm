@@ -21,21 +21,19 @@ Target DLL:      UL2CM3.DLL V1.156.1.0
 Dialog DLL:      TCM.DLL V1.14.6.0
  
 <h2>Project:</h2>
-C:\Users\TEMP.GEII2.046\Documents\GitHub\Projet-Synth-se-musicale\Code_Keil\Projet_V3 Valentin\Projet_V3.uvprojx
-Project File Date:  06/12/2025
+C:\Users\TEMP.GEII2.047\Documents\GitHub\Projet-Synth-se-musicale\Code_Keil\Projet_V3 Valentin\Projet_V3.uvprojx
+Project File Date:  06/23/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 compiling main.c...
-main.c(20): warning:  #550-D: variable "step" was set but never used
-  	int step;
-main.c(56): warning:  #111-D: statement is unreachable
+main.c(69): warning:  #111-D: statement is unreachable
       return 0;
-main.c: 2 warnings, 0 errors
+main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=6068 RO-data=708 RW-data=4 ZI-data=3684  
-".\Objects\Projet_V3.axf" - 0 Error(s), 2 Warning(s).
+Program Size: Code=6820 RO-data=708 RW-data=4 ZI-data=3684  
+".\Objects\Projet_V3.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -47,33 +45,33 @@ Package Vendor: ARM
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.MDK-Middleware.7.0.0.pack
-                ::Board Support:LED:1.00 (API)
+                ::Board Support:A/D Converter:1.00 (API)
                 Keil MDK-ARM Professional Middleware for ARM Cortex-M based devices
-   * Component: LED Version: 1.00
    * Component: A/D Converter Version: 1.00
+   * Component: LED Version: 1.00
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.STM32F2xx_DFP.2.10.0.pack
-                Keil::Device:STM32Cube HAL:DAC:1.2.7
+                Keil::Device:STM32Cube HAL:Common:1.2.7
                 STMicroelectronics STM32F2 Series Device Support, Drivers and Examples
+   * Component: Common Version: 1.2.7
    * Component: DAC Version: 1.2.7
-   * Component: DMA Version: 1.2.7
-   * Component: Cortex Version: 1.2.7
-   * Component: STM32Cube Framework Version: 1.0.0
    * Component: Startup Version: 2.2.1
    * Component: Classic Version: 1.2.7
+   * Component: DMA Version: 1.2.7
+   * Component: Cortex Version: 1.2.7
    * Component: GPIO Version: 1.2.7
-   * Component: Common Version: 1.2.7
    * Component: ADC Version: 1.2.7
-   * Component: TIM Version: 1.2.7
+   * Component: STM32Cube Framework Version: 1.0.0
    * Component: RTC Version: 1.2.7
-   * Component: A/D Converter Version: 2.0.0
    * Component: RCC Version: 1.2.7
+   * Component: TIM Version: 1.2.7
    * Component: LED Version: 2.0.0
+   * Component: A/D Converter Version: 2.0.0
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\TEMP.GEII2.046\Documents\GitHub\Projet-Synth-se-musicale\Code_Keil\Projet_V3 Valentin\RTE
-  C:\Users\TEMP.GEII2.046\Documents\GitHub\Projet-Synth-se-musicale\Code_Keil\Projet_V3 Valentin\RTE\Device\STM32F207IGHx
+  C:\Users\TEMP.GEII2.047\Documents\GitHub\Projet-Synth-se-musicale\Code_Keil\Projet_V3 Valentin\RTE
+  C:\Users\TEMP.GEII2.047\Documents\GitHub\Projet-Synth-se-musicale\Code_Keil\Projet_V3 Valentin\RTE\Device\STM32F207IGHx
   C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include
   C:\Keil_v5\ARM\PACK\Keil\MDK-Middleware\7.0.0\Board
   C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include
@@ -83,71 +81,71 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.3.0
 
-   * Component: ::Board Support:LED:1.00 (API)
-      Include file:  Board\Board_LED.h
-
    * Component: ::Board Support:A/D Converter:1.00 (API)
       Include file:  Board\Board_ADC.h
 
+   * Component: ::Board Support:LED:1.00 (API)
+      Include file:  Board\Board_LED.h
+
+   * Component: Keil::Device:STM32Cube HAL:Common:1.2.7
+      Include file:  Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal.h
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c
+
    * Component: Keil::Device:STM32Cube HAL:DAC:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dac.c
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dac_ex.c
-
-   * Component: Keil::Device:STM32Cube HAL:DMA:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma.c
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma_ex.c
-
-   * Component: Keil::Device:STM32Cube HAL:Cortex:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_cortex.c
-
-   * Component: ::Device:STM32Cube Framework:1.0.0 (API)
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dac.c
 
    * Component: Keil::Device:Startup:2.2.1
-      Include file:  Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h
-      Source file:   MDK\Device\Source\ARM\STM32F2xx_OPT.s
-      Source file:   Drivers\CMSIS\Device\ST\STM32F2xx\Source\Templates\system_stm32f2xx.c
-      Source file:   MDK\Device\Source\ARM\STM32F2xx_OTP.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F2xx\Source\Templates\arm\startup_stm32f207xx.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32F2xx\Source\Templates\system_stm32f2xx.c
+      Source file:   MDK\Device\Source\ARM\STM32F2xx_OPT.s
+      Source file:   MDK\Device\Source\ARM\STM32F2xx_OTP.s
+      Include file:  Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h
 
    * Component: Keil::Device:STM32Cube Framework:Classic:1.2.7
-      Source file:   MDK\Templates\Src\main.c
-      Source file:   MDK\Templates\Src\stm32f2xx_hal_msp.c
-      Include file:  CMSIS\Driver\Config\RTE_Device.h
-      Include file:  MDK\Templates\Inc\stm32f2xx_it.h
-      Source file:   MDK\Templates\Src\stm32f2xx_it.c
       Include file:  MDK\Templates\Inc\main.h
       Include file:  MDK\Templates_LL\Inc\main.h
       Source file:   MDK\Templates_LL\Src\main.c
       Include file:  MDK\Templates\Inc\stm32f2xx_hal_conf.h
+      Source file:   MDK\Templates\Src\stm32f2xx_hal_msp.c
+      Source file:   MDK\Templates\Src\main.c
+      Include file:  CMSIS\Driver\Config\RTE_Device.h
+      Include file:  MDK\Templates\Inc\stm32f2xx_it.h
+      Source file:   MDK\Templates\Src\stm32f2xx_it.c
+
+   * Component: Keil::Device:STM32Cube HAL:DMA:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma_ex.c
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma.c
+
+   * Component: Keil::Device:STM32Cube HAL:Cortex:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_cortex.c
 
    * Component: Keil::Device:STM32Cube HAL:GPIO:1.2.7
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_gpio.c
 
-   * Component: Keil::Device:STM32Cube HAL:Common:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c
-      Include file:  Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal.h
-
    * Component: Keil::Device:STM32Cube HAL:ADC:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_adc_ex.c
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_adc.c
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_adc_ex.c
 
-   * Component: Keil::Device:STM32Cube HAL:TIM:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim_ex.c
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim.c
+   * Component: ::Device:STM32Cube Framework:1.0.0 (API)
 
    * Component: Keil::Device:STM32Cube HAL:RTC:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rtc_ex.c
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rtc.c
-
-   * Component: Keil.MCBSTM32F200::Board Support:A/D Converter:2.0.0
-      Source file:   MDK\Boards\Keil\MCBSTM32F200\Common\ADC_MCBSTM32F200.c
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rtc_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:RCC:1.2.7
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc_ex.c
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc.c
 
+   * Component: Keil::Device:STM32Cube HAL:TIM:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim.c
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim_ex.c
+
    * Component: Keil.MCBSTM32F200::Board Support:LED:2.0.0
       Source file:   MDK\Boards\Keil\MCBSTM32F200\Common\LED_MCBSTM32F200.c
+
+   * Component: Keil.MCBSTM32F200::Board Support:A/D Converter:2.0.0
+      Source file:   MDK\Boards\Keil\MCBSTM32F200\Common\ADC_MCBSTM32F200.c
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

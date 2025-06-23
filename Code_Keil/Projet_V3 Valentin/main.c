@@ -6,9 +6,20 @@
 #define DAC_CENTER_VALUE 2047             // Centre pour signal bipolaire
 #define SINE_TABLE_SIZE 1024               // Points dans la table
 #define SINE_AMPLITUDE 2000              // Amplitude (max 2047)
-
+#define Do5 4.8f
+#define DoSib5 5.2f  // Do#5 / Réb5
+#define Re5 5.465f
+#define ReSib5 5.68f  // Ré#5 / Mib5
+#define Mi5 6.2f
+#define Fa5 6.47f
+#define FaSib5 6.9f  // Fa#5 / Solb5
+#define Sol5 7.23f
+#define SolSib5 7.72f // Sol#5 / Lab5
+#define La5 8.0f
+#define LaSib5 8.5f  // La#5 / Sib5
+#define Si5 9.0f
 unsigned short sine_table[SINE_TABLE_SIZE]; // Table de sinusoïde
-volatile unsigned int sine_index = 0;       // Index global
+volatile float sine_index = 0.0f;      // Index global
 
 void generateSineTable(void) {
     int i;
@@ -16,20 +27,22 @@ void generateSineTable(void) {
         sine_table[i] = (unsigned short)(DAC_CENTER_VALUE + SINE_AMPLITUDE * sin((float)i * 2.0f * PI / SINE_TABLE_SIZE)); // Calcule sinusoïde
     }
 }
-int calc_freq(int freq) {
+/*int calc_freq(int freq) {
 	int step;
 	return step = (freq*4)/1000;
-}
-void generateSine(void) {
-    DAC->DHR12R1 = sine_table[sine_index]; // Écrit dans le DAC
-    sine_index = sine_index +1*8;                          // faire le code pour calc freq
-    if (sine_index >= SINE_TABLE_SIZE) sine_index = 0; // Bouclage
+}*/
+void generateSine(float note) {
+    int index_int = (int)sine_index;               // Convertir en entier pour l'accès à la table
+    DAC->DHR12R1 = sine_table[index_int];          // Écrit dans le DAC
+    sine_index += note;                             
+    if (sine_index >= SINE_TABLE_SIZE)             // Dépassement
+        sine_index -= SINE_TABLE_SIZE;             // Wrap autour proprement
 }
 
 void TIM6_DAC_IRQHandler(void) {
     if (TIM6->SR & TIM_SR_UIF) {          // Vérifie flag
         TIM6->SR &= ~TIM_SR_UIF;         // Efface flag
-        generateSine();                   // Génère signal
+        generateSine(Do5);                   // Génère signal
     }
 }
 
