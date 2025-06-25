@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pianoRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#000000">
+
+    <LinearLayout
+        android:id="@+id/whiteKeyContainer"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="horizontal"
+        android:background="#000000" />
+
+    <FrameLayout
+        android:id="@+id/blackKeyOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" />
+</FrameLayout>
