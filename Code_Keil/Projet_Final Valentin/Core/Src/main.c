@@ -15,7 +15,7 @@ DAC_HandleTypeDef hdac;
 DMA_HandleTypeDef hdma_dac1;
 TIM_HandleTypeDef htim6;
 
-char uart_rx_buffer[8];  // Pour recevoir des chaînes comme "N:C#4\n"
+char uart_rx_buffer[8];  // Pour recevoir des chaÃ®nes comme "N:C#4\n"
 volatile uint8_t uart_rx_ready = 0;
 
 typedef struct {
@@ -52,7 +52,7 @@ void Set_Sine_Frequency(float freq_hz) {
   __HAL_TIM_SET_COUNTER(&htim6, 0);
   __HAL_TIM_ENABLE(&htim6);
 
-  // Redémarrer DAC DMA
+  // RedÃ©marrer DAC DMA
   HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)sine_table, SINE_TABLE_SIZE, DAC_ALIGN_12B_R);
 }
 
@@ -67,7 +67,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 }
 
 void Process_Note_Command(void) {
-  uart_rx_buffer[7] = '\0'; // Sécurité
+  uart_rx_buffer[7] = '\0'; // SÃ©curitÃ©
 
   if (strlen(uart_rx_buffer) < 4) return;  // Ex: "N:C4\n"
 
