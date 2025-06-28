@@ -1,6 +1,3 @@
-Voici le code que vous avez fourni, commenté ligne par ligne avec `//`:
-
-```c
 #include "main.h"       // Inclusion du fichier d'en-tête principal du projet (généré par STM32CubeMX)
 #include <string.h>     // Inclusion de la bibliothèque pour les fonctions de manipulation de chaînes (ex: strlen, strcmp)
 #include <stdlib.h>     // Inclusion de la bibliothèque standard (ex: pour d'éventuelles fonctions utilitaires)
