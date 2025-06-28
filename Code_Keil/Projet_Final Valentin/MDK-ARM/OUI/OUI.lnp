@@ -1,0 +1,27 @@
+--cpu Cortex-M3
+"oui\startup_stm32f207xx.o"
+"oui\main.o"
+"oui\stm32f2xx_it.o"
+"oui\stm32f2xx_hal_msp.o"
+"oui\stm32f2xx_hal_dac.o"
+"oui\stm32f2xx_hal_dac_ex.o"
+"oui\stm32f2xx_hal.o"
+"oui\stm32f2xx_hal_rcc.o"
+"oui\stm32f2xx_hal_rcc_ex.o"
+"oui\stm32f2xx_hal_cortex.o"
+"oui\stm32f2xx_hal_flash.o"
+"oui\stm32f2xx_hal_flash_ex.o"
+"oui\stm32f2xx_hal_pwr.o"
+"oui\stm32f2xx_hal_pwr_ex.o"
+"oui\stm32f2xx_hal_gpio.o"
+"oui\stm32f2xx_hal_dma.o"
+"oui\stm32f2xx_hal_dma_ex.o"
+"oui\stm32f2xx_hal_exti.o"
+"oui\stm32f2xx_hal_tim.o"
+"oui\stm32f2xx_hal_tim_ex.o"
+"oui\stm32f2xx_hal_uart.o"
+"oui\system_stm32f2xx.o"
+--strict --scatter "OUI\OUI.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "OUI.map" -o OUI\OUI.axf
